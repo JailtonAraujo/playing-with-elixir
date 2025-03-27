@@ -6,3 +6,6 @@
 * Boolean and nill
 * Atoms
 * String
+
+### 002.exs
+* Lists and Tuples
