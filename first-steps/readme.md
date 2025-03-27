@@ -9,3 +9,6 @@
 
 ### 002.exs
 * Lists and Tuples
+
+### 003.exs 
+* Pattern matching
