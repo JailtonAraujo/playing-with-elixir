@@ -12,3 +12,6 @@
 
 ### 003.exs 
 * Pattern matching
+
+### 004.exs
+* case, cond, and if
