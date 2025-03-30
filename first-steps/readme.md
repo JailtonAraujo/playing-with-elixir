@@ -15,3 +15,7 @@
 
 ### 004.exs
 * case, cond, and if
+
+### 005.exs
+* Anonymous functions
+* Basic Operations
