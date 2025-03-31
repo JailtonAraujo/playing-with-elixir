@@ -19,3 +19,7 @@
 ### 005.exs
 * Anonymous functions
 * Basic Operations
+
+### 006.exs
+* Keywords Lists
+* Maps
