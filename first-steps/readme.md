@@ -23,3 +23,6 @@
 ### 006.exs
 * Keywords Lists
 * Maps
+
+### 007.exs
+* Modules and functions
