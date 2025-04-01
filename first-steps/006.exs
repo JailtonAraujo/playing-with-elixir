@@ -39,3 +39,25 @@ IO.inspect(get(my_map, :b));
 IO.inspect(put(my_map, :c, 3))
 
 IO.inspect(to_list(my_map))
+
+#Maps of predefined keys
+people = %{:name => "Victor", :age => 26, :is_alive => true}
+IO.inspect(people)
+
+IO.inspect("The name od the person is: #{people.name}")
+
+users = [
+  jailton: %{username: "jailton-santos", email: "jailton@gmail.com", pass: "123456",  groups: ["admin", "manager"]},
+  mario: %{username: "mario-andrade", email: "mario@gmail.com", pass: "2589", groups: ["editor", "writer"]}
+]
+
+IO.inspect(users)
+IO.inspect(users[:jailton].username)
+
+users = put_in(users[:mario].username, "andrade")
+IO.inspect(users)
+
+users = update_in(users[:jailton].groups, fn groups -> groups ++ ["writer", "editor"] end)
+
+users = update_in(users[:jailton].groups, fn groups -> List.delete(groups, "manager") end)
+IO.inspect(users)
