@@ -26,3 +26,6 @@
 
 ### 007.exs
 * Modules and functions
+
+### 008.exs
+* Recusion and a litle bit about Enumerables
