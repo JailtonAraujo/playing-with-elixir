@@ -46,7 +46,7 @@ defmodule Crud do
     file_path = "db"
     case File.read(file_path) do
       {:ok, body} ->
-        IO.inspect(String.split(body, "\n") |> Enum.filter(fn row -> row != "" end))
+        String.split(body, "\n") |> Enum.filter(fn row -> row != "" end) |> Enum.each(fn row -> IO.puts(row) end)
       {:error, reason} ->
         IO.puts("Falha ao listar registro!")
         IO.inspect reason
@@ -63,7 +63,7 @@ defmodule Crud do
         if (is_nil(found_record)) do
           IO.puts("Registro não encontrado com nome: #{value}");
         else
-          IO.inspect("Nome encontrado: #{found_record}")
+          IO.puts("Nome encontrado: #{found_record}")
         end
       {:error} -> IO.puts("Falha ao carregar registros")
     end
