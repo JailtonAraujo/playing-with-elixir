@@ -7,6 +7,7 @@ swith_option = fn option ->
   case number do
     1 -> Crud.new()
     2 -> Crud.list()
+    3 -> Crud.get_by_name()
     _ ->
       IO.puts("Opção invalida!")
   end
@@ -36,6 +37,7 @@ defmodule Crud do
         IO.puts("Nome salvo com sucesso!")
       {:error, reason} ->
         IO.puts("Falha ao salvar!")
+        IO.inspect reason
         File.close(file)
     end
   end
@@ -45,7 +47,25 @@ defmodule Crud do
     case File.read(file_path) do
       {:ok, body} ->
         IO.inspect(String.split(body, "\n") |> Enum.filter(fn row -> row != "" end))
-      {:error, reason} -> IO.puts("Falha ao listar registro!")
+      {:error, reason} ->
+        IO.puts("Falha ao listar registro!")
+        IO.inspect reason
+    end
+  end
+
+  def get_by_name do
+    file_path = "db"
+    value = IO.gets("Insira o nome a pesquisar:") |> String.trim()
+    case File.read(file_path) do
+      {:ok, body} ->
+        records = String.split(body, "\n") |> Enum.filter(fn row -> row != "" end)
+        found_record = Enum.find(records, &(&1 == value));
+        if (is_nil(found_record)) do
+          IO.puts("Registro não encontrado com nome: #{value}");
+        else
+          IO.inspect(found_record)
+        end
+      {:error} -> IO.puts("Falha ao carregar registros")
     end
   end
 end
