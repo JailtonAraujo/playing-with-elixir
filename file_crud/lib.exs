@@ -63,7 +63,7 @@ defmodule Crud do
         if (is_nil(found_record)) do
           IO.puts("Registro não encontrado com nome: #{value}");
         else
-          IO.inspect(found_record)
+          IO.inspect("Nome encontrado: #{found_record}")
         end
       {:error} -> IO.puts("Falha ao carregar registros")
     end
