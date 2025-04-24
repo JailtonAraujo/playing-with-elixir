@@ -1,33 +1,36 @@
-swith_option = fn option ->
-  number =
-    case Integer.parse(option) do
-      {int, _rest} -> int
-      :error -> nil
+defmodule Options do
+  defp swith(option) do
+    number =
+      case Integer.parse(option) do
+        {int, _rest} -> int
+        :error -> nil
+      end
+
+    case number do
+      1 ->
+        Crud.new()
+      2 ->
+        Crud.list()
+      3 ->
+        Crud.get_by_name()
+      4 ->
+        Crud.delete()
+      5 -> IO.puts("Encerrado!")
+      _ ->
+        IO.puts("Opção invalida!")
     end
-
-  case number do
-    1 ->
-      Crud.new()
-    2 ->
-      Crud.list()
-    3 ->
-      Crud.get_by_name()
-    4 ->
-      Crud.delete()
-    _ ->
-      IO.puts("Opção invalida!")
   end
-end
-
-show_options = fn ->
-  option = IO.gets("
-  #### CHOSE OPTION ####
-  [1] - NEW
-  [2] - LIST
-  [3] - GET_BY_NAME
-  [4] - REMOVE
-  >>> ")
-  swith_option.(option)
+  def show do
+    option = IO.gets("
+    #### CHOSE OPTION ####
+    [1] - NEW
+    [2] - LIST
+    [3] - GET_BY_NAME
+    [4] - REMOVE
+    [5] - Sair
+    >>> ")
+    swith(option)
+  end
 end
 
 defmodule Crud do
@@ -63,7 +66,7 @@ defmodule Crud do
         :ok ->
           File.close(file)
           IO.puts("Nome salvo com sucesso!")
-
+          Options.show()
         {:error, reason} ->
           IO.puts("Falha ao salvar!")
           IO.inspect(reason)
@@ -79,7 +82,9 @@ defmodule Crud do
       {:ok, body} ->
         String.split(body, "\n")
         |> Enum.filter(fn row -> row != "" end)
-        |> Enum.each(fn row -> IO.puts(row) end)
+        |> Enum.with_index()
+        |> Enum.each(fn {row, index} -> IO.puts("#{index + 1} - #{row}") end)
+        Options.show()
 
       {:error, reason} ->
         IO.puts("Falha ao listar registro!")
@@ -100,6 +105,7 @@ defmodule Crud do
           IO.puts("Registro não encontrado com nome: #{value}")
         else
           IO.puts("Nome encontrado: #{found_record}")
+          Options.show()
         end
 
       {:error} ->
@@ -125,8 +131,8 @@ defmodule Crud do
             File.close(file);
             {:ok, file} = File.open(file_path, [:append]);
             Enum.join(new_rocords, "\n") |> (fn records_split -> IO.puts(file, records_split) end).()
-            #Enum.each(new_rocords, fn row -> IO.write(file, row) end);
             IO.puts("Deletado com sucesso!");
+            Options.show()
           end
         {:error} ->
           IO.puts("Falha ao carregar registros!")
@@ -137,4 +143,4 @@ defmodule Crud do
   end
 end
 
-show_options.()
+Options.show()
