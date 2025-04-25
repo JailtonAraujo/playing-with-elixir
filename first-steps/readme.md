@@ -33,5 +33,11 @@
 ### 009.exs
 * Enumerables and Streams
 
-### 009.exs
+### 010.exs
 * Process
+
+### 011.exs
+* IO and the file system
+
+### 012.exs
+* Structs
