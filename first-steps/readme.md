@@ -50,3 +50,6 @@
 
 ### 015.exs
 * Sigils
+
+### 016.exs
+* try, catch, and rescue
